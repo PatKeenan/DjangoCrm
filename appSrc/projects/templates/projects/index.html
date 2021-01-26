@@ -1,0 +1,41 @@
+{% extends "projects/base.html"%}
+
+{% block title%}Django Project Tracker!{% endblock %}
+
+{% block content %}
+
+<div class="d-flex align-items-center">
+    <h2 class="py-3">All Projects</h2>
+    <div class="ms-auto">
+        <a href="{% url 'add-project' %}"><button type="button" class="btn btn-primary">Add Project</button></a>
+        <a href="{% url 'add-task' %}"><button type="button" class="btn btn-success">Add Task</button></a>
+
+    </div>
+</div>
+
+
+<div class="container">
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+        {% for item in object_list %}
+        <div class="col">
+            <div class="card shadow">
+                <img src="{{ item.project_image }}"
+                    class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">{{ item.title }}</h5>
+                    <p class="card-text">{{ item.project_description }}</p>
+                    <p class="card-text"><small class="text-muted">{{ item.date_created }}</small></p>
+                    <a href="{% url 'project-detail' item.slug %}" class="btn btn-primary">View Project</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+</div>
+
+
+
+
+
+{% endblock %}

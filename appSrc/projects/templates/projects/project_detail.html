@@ -1,0 +1,15 @@
+{% extends 'projects/base.html' %}
+
+{% block title %}Project Details{% endblock %}
+
+<h1>Working</h1>
+
+{% block content %}
+<form method="POST"> {% csrf_token %} {{ form.as_p }} <input></form>
+<h3>{{ project.title }}</h3>
+<p>{{ project.project_description }}</p>
+{% for item in project.assigned_project.all %}
+<p>{{ item.task }}</p>
+{% endfor %}
+
+{% endblock %}
