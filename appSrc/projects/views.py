@@ -3,34 +3,11 @@ from django.contrib.auth.decorators import login_required
 from .models import *
 from django.views.generic import ListView, DetailView, CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin
-<<<<<<< HEAD
-=======
 import datetime
->>>>>>> views
 
 from .forms import *
 
 # Create your views here.
-
-
-<<<<<<< HEAD
-class HomeView(LoginRequiredMixin, ListView):
-=======
-""" class HomeView(LoginRequiredMixin, ListView):
->>>>>>> views
-    model = Project
-    template_name = 'projects/index.html'
- """
-
-
-""" class ProjectDetail(LoginRequiredMixin, DetailView):
-    model = Project
-
-    def get_queryset(self):
-        if request.user == Project.objects.filter(author=self.)
-        return Project.objects.filter(author=self.request.user)
-        template_name = 'projects/project_detail.html'
- """
 
 class AddProjectView(LoginRequiredMixin, CreateView):
     model = Project
@@ -40,6 +17,7 @@ class AddProjectView(LoginRequiredMixin, CreateView):
 @login_required
 def addProject(request):
     if request.method == "POST":
+        user = request.user
         if request.user.is_authenticated:
             form = ProjectForm(request.POST)
             if form.is_valid():
@@ -61,40 +39,36 @@ class AddTaskView(LoginRequiredMixin, CreateView):
     template_name = 'projects/add_task.html'
     form_class = TaskForm
 
-<<<<<<< HEAD
-""" @login_required
-def homeView(request):
-    projects = Project.objects.filter(author=request.user)
- """
-=======
 
-
-def homeView(request):
+@login_required
+def dashboardView(request):
     if request.method == "GET":
-        if request.user.is_authenticated:
-            projects = Project.objects.filter(author=request.user)
-
+        projects = Project.objects.filter(author=request.user)
+        if len(projects) <= 0:
+            message = "Welcome to your dashboard, begin by adding a project above."
             context = {
-                "projects": projects
+                "message":message
             }
             return render(request, "projects/index.html", context)
         else:
-            return redirect('accounts/login/')
+            backup_image = "https://osbornegroupcre.com/wp-content/uploads/2016/02/missing-image-640x360.png"
+            context = {
+                "projects": projects,
+                "backup": backup_image
+            }
+            return render(request, "projects/index.html", context)
+    else:
+        return redirect('accounts/login/')
 
-
+@login_required
 def projectDetail(request, slug):
-    
     if request.method == "GET":
-        if request.user.is_authenticated:
-            try:
-                project = Project.objects.get(author=request.user, slug = slug)
-                context = {
-                    "project": project
-                }
-                return render(request, 'projects/project_detail.html', context)
-            except:
-                return render(request, "projects/nothing_to_see.html",{})
-        else:
-            return redirect('accounts/login/')
-
->>>>>>> views
+        try: 
+            projects = Project.objects.get(author=request.user, slug = slug)
+            context = {
+                "project": projects,
+            }
+            return render(request, 'projects/project_detail.html', context)
+        except:
+            return render(request, 'projects/nothing_to_see.html', {})
+            

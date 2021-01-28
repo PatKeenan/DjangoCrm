@@ -1,0 +1,14 @@
+{% extends 'projects/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+    <div class="container h-100 d-flex justify-content-center align-items-center">
+        <div class="row w-100" style="margin-top: -40px;">
+            <div class="col-12 col-md-8 col-lg-6 col-xl-4 m-auto p-5 shadow-lg rounded bg-dark">
+                <h4 class="text-center text-white">See You Soon!</h4>
+                <a href="{% url 'login' %}">Sign in again</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends 'projects/base.html' %}
+
+
+{% block content %}
+<div class="container pt-2 pb-5">
+    <div>
+        <h2 class="text-center">Add a Person</h2>
+    </div>
+    <div class="row">
+        <div class="col col-xl-8 m-auto">
+            <form action="" method="POST" class="orm-group bg-light p-lg-5 p-3 p-md-3 p-xl-5 rounded-3 shadow-lg">
+                {% csrf_token %}
+                {{ form }}
+                <button type="submit" class="btn btn-primary mt-3">Add Person</button>
+            </form>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

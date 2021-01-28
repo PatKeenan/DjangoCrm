@@ -3,6 +3,8 @@
 {% block content %}
 <div class="container w-50 h-50 my-auto">
     <div class="m-auto">
+        {{ user }}
+        {{ test }}
         <h4>You're seeing this meeage becuase you either don't have permission to view this page or you are logged into the
             wrong account.</h4>
         <a href="{% url 'login' %}"><button class="btn btn-primary">Please login to the correct account</button></a>

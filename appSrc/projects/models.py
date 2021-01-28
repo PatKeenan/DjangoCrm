@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.urls import reverse
 from django.template.defaultfilters import slugify
+from crm.models import Active
 
 
 # Create your models here.
@@ -12,6 +13,9 @@ class Project(models.Model):
     slug = models.SlugField(max_length=500, unique=True, blank=True)
     project_description = models.TextField(max_length=300)
     date_created = models.DateTimeField(auto_now_add=True)
+    assigned_folder = models.ForeignKey(Active, verbose_name="Assign To Folder",
+                                        on_delete=models.CASCADE, related_name="active_foler_project", blank=True, null=True)
+
 
     def __str__(self):
         return self.title

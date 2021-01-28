@@ -2,16 +2,60 @@
 
 {% block title %}Project Details{% endblock %}
 
-<h1>Working</h1>
-
 {% block content %}
 {% if user.id ==  project.author.id %}
-    <form method="POST"> {% csrf_token %} {{ form.as_p }} <input></form>
-    <h3>{{ project.title }}</h3>
-    <p>{{ project.project_description }}</p>
-    {% for item in project.assigned_project.all %}
-    <p>{{ item.task }}</p>
-    {% endfor %}
+    <div class="container">
+        <div class="row w-100 justify-content-center p-0 m-auto">
+            <div class="col-12 d-flex flex-column justify-content-center">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{% url 'home' %}">Projects</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">{{ project.title }}</li>
+                    </ol>
+                </nav>
+                <div class="d-flex w-100 flex-column">
+                    <img src="{{ project.project_image }}" alt="" height='200px' style="object-fit: cover;"
+                        onerror="this.onerror=null;this.src='{{ backup }}';">
+                    <div class="pt-3 text-left">
+                        <h3>{{ project.title }}</h3>
+                        <p>{{ project.project_description }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="row">
+                    <div class="col-6 d-flex flex-column p-3">
+                        <div class="text-center p-0">
+                            <h5>To Do Items</h5>
+                            <hr>
+                        </div>
+                        {% for item in project.assigned_project.all %}
+                            {% if item.status == False %}
+                            <div class="w-75 px-2 py-2 bg-white rounded-3 shadow d-flex m-auto align-items-center">
+                                <p class="px-2 py-0 m-0">{{ item.task }}</p>
+                                <button class="btn btn-sm btn-success ms-auto">Mark Done</button>
+                            </div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                    <div class="col-6 d-flex flex-column p-3">
+                        <div class="text-center p-0">
+                            <h5>Done Items</h5>
+                            <hr>
+                        </div>
+                        {% for item in project.assigned_project.all %}
+                            {% if item.status == True %}
+                            <div class="w-75 px-2 py-2 bg-white rounded-3 shadow d-flex m-auto align-items-center">
+                                <p class="px-2 py-0 mx-auto my-0 text-secondary text-decoration-line-through">{{ item.task }}</p>
+                            </div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
 
     {% else %}
 

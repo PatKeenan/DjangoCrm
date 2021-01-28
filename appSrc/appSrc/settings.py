@@ -37,6 +37,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'crispy_forms',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -131,5 +132,9 @@ STATIC_URL = '/static/'
 """ LOGIN_URL = 'accounts/login/'
  """
 LOGIN_REDIRECT_URL = '/'
-LOGOUT_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/logout-confirmation/'
 
+REGISTER_REDIRECT_URL = "accounts/login/"
+
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'

@@ -1,21 +1,24 @@
 {% extends 'projects/base.html' %}
-
 {% block title %}Add A Project{% endblock %}
 
 
 {% block content %}
-
-<h1>Working</h1>
-<div class="container">
-    <div class="row">
-        <div class="col-6">
-            <form method="POST" class="form-group">
+<div class="container h-100">
+    
+    <div class="row d-flex justify-content-center align-items-center h-75">
+        <div class="col col-lg-8 m-auto">
+            <h2 class="my-3 text-center">Add Project Below</h2>
+            <form method="POST" class="form-group bg-light p-5 rounded-3 shadow-lg">
                 {% csrf_token %}
                 {{ form.as_p }}
             <button class="btn btn-primary">Add Project</button>
+            </form>
         </div>
     </div>
+            
 </div>
+
+
 
 
 {% endblock %}
